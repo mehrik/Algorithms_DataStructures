@@ -1,7 +1,7 @@
 <script type="text/javascript">
 var BinarySearchTree = (function() {
 
-    function bstNode(value) {
+    function btNode(value) {
         this.val = value;
         this.left = null;
         this.right = null;
@@ -13,9 +13,9 @@ var BinarySearchTree = (function() {
 
     /////////////////////////////////////////
     //
-    // Add find value with helper function
+    // Return whether or not value is contained in tree
     //
-    BinarySearchTree.prototype.find = function(value) {
+    BinarySearchTree.prototype.contains = function(value) {
         function find_helper(node, value) {
             if (value < node.val) {
                 return node.left == null ? false : find_helper(node.left);
@@ -42,7 +42,7 @@ var BinarySearchTree = (function() {
         function add_helper(node, value) {
             if (value < node.val) {
                 if (node.left == null) {
-                    node.left = new bstNode(value);
+                    node.left = new btNode(value);
                     return true;
                 } else {
                     return add_helper(node.left, value);
@@ -51,7 +51,7 @@ var BinarySearchTree = (function() {
 
             else if (value > node.val) {
                 if (node.right == null) {
-                    node.right = new bstNode(value);
+                    node.right = new btNode(value);
                     return true;
                 } else {
                     return add_helper(node.right, value);
@@ -63,18 +63,45 @@ var BinarySearchTree = (function() {
             }
         }
 
-        var node = new bstNode(value);
+        var node = new btNode(value);
         if (this.root == null) { 
             this.root = node; 
         } else {
             add_helper(this.root, value);
         }
     }
+    /////////////////////////////////////////
+    //
+    // Returns minimum value of tree
+    //
+    BinarySearchTree.prototype.min = function() {
+        if (this.root == null) return null;
+
+        var curr = this.root;
+        while (curr.left != null) {
+            curr = curr.left;
+        }
+        return curr.val;
+    }
+
+    /////////////////////////////////////////
+    //
+    // Returns maximum value of tree
+    //
+    BinarySearchTree.prototype.max = function() {
+        if (this.root == null) return null;
+
+        var curr = this.root;
+        while (curr.right != null) {
+            curr = curr.right;
+        }
+        return curr.val;
+    }
 
 
     /////////////////////////////////////////
     //
-    // Find height of tree w/ helper function
+    // Returns height of tree w/ helper function
     //
     BinarySearchTree.prototype.height = function() {
         function height_helper(node) {
