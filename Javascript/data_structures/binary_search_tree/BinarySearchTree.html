@@ -1,0 +1,96 @@
+<script type="text/javascript">
+var BinarySearchTree = (function() {
+
+    function bstNode(value) {
+        this.val = value;
+        this.left = null;
+        this.right = null;
+    }
+
+    function BinarySearchTree() {
+        this.root = null;
+    }
+
+    /////////////////////////////////////////
+    //
+    // Add find value with helper function
+    //
+    BinarySearchTree.prototype.find = function(value) {
+        function find_helper(node, value) {
+            if (value < node.val) {
+                return node.left == null ? false : find_helper(node.left);
+            }
+
+            else if (value > node.val) {
+                return node.right == null ? false : find_helper(node.right);
+            }
+
+            else {
+                return true;
+            }
+        }
+        
+        return this.root == null ? false : find_helper(this.root, value);
+    }
+
+
+    /////////////////////////////////////////
+    //
+    // Add node w/ insert helper function
+    //
+    BinarySearchTree.prototype.add = function(value) {
+        function add_helper(node, value) {
+            if (value < node.val) {
+                if (node.left == null) {
+                    node.left = new bstNode(value);
+                    return true;
+                } else {
+                    return add_helper(node.left, value);
+                }
+            }
+
+            else if (value > node.val) {
+                if (node.right == null) {
+                    node.right = new bstNode(value);
+                    return true;
+                } else {
+                    return add_helper(node.right, value);
+                }
+            }
+
+            else {
+                return "Node already exists";
+            }
+        }
+
+        var node = new bstNode(value);
+        if (this.root == null) { 
+            this.root = node; 
+        } else {
+            add_helper(this.root, value);
+        }
+    }
+
+
+    /////////////////////////////////////////
+    //
+    // Find height of tree w/ helper function
+    //
+    BinarySearchTree.prototype.height = function() {
+        function height_helper(node) {
+            if (node == null) {
+                return 0;
+            }
+            var right = height_helper(node.right);
+            var left = height_helper(node.left);
+            return right > left ? right + 1 : left + 1;
+        }
+        
+        if (this.root == null) { 
+            return null; 
+        }
+        return height_helper(this.root) - 1;
+    }
+
+})();
+</script>
