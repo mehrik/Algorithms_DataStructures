@@ -98,6 +98,29 @@ var BinarySearchTree = (function() {
         return curr.val;
     }
 
+    /////////////////////////////////////////
+    //
+    // Returns if bst is empty or not
+    //
+    BinarySearchTree.prototype.isEmpty = function() {
+        return (this.root == null) ? false : true;
+    }
+
+    /////////////////////////////////////////
+    //
+    // Returns if bst is empty or not
+    //
+    BinarySearchTree.prototype.size() = function() {
+        function size_helper(node) {
+            if (node == null) return 0;
+
+            var right = size_helper(node.right);
+            var left = size_helper(node.left);
+            return 1 + right + left;
+        }
+        if (this.root == null) return null;
+        return size_helper(this.root);
+    }
 
     /////////////////////////////////////////
     //
@@ -105,18 +128,23 @@ var BinarySearchTree = (function() {
     //
     BinarySearchTree.prototype.height = function() {
         function height_helper(node) {
-            if (node == null) {
-                return 0;
-            }
+            if (node == null) return 0;
+
             var right = height_helper(node.right);
             var left = height_helper(node.left);
             return right > left ? right + 1 : left + 1;
         }
         
-        if (this.root == null) { 
-            return null; 
-        }
+        if (this.root == null) return null; 
         return height_helper(this.root) - 1;
+    }
+
+    /////////////////////////////////////////
+    //
+    // Clear all values from the tree
+    //
+    BinarySearchTree.prototype.removeAll = function() {
+        this.root = null;
     }
 
 })();
