@@ -100,7 +100,7 @@ var BinarySearchTree = (function() {
 
     /////////////////////////////////////////
     //
-    // Returns if bst is empty or not
+    // Returns if BST is empty or not
     //
     BinarySearchTree.prototype.isEmpty = function() {
         return (this.root == null) ? false : true;
@@ -108,7 +108,7 @@ var BinarySearchTree = (function() {
 
     /////////////////////////////////////////
     //
-    // Returns if bst is empty or not
+    // Returns if BST is empty or not
     //
     BinarySearchTree.prototype.size() = function() {
         function size_helper(node) {
@@ -146,6 +146,28 @@ var BinarySearchTree = (function() {
     BinarySearchTree.prototype.removeAll = function() {
         this.root = null;
     }
+
+    /////////////////////////////////////////
+    //
+    // Returns if tree is valid BST
+    //
+    BinarySearchTree.prototype.isValid = function() {
+        function isValid_helper(node, leftBound, rightBound) {
+            if (node.val <= leftBound || node.val > rightBound) return false;
+
+            if (node == null) return true;
+
+            var leftNodeIsValid = (node.left, leftBound, node.val);
+            var rightNodeIsValid = (node.right, node.val, rightBound);
+
+            return leftNodeIsValid && rightNodeIsValid;
+        }
+        if (this.root == null) return true;
+
+        return isValid_helper(this.root, -Infinity, Infinity);
+    }
+
+
 
 })();
 </script>
